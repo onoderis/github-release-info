@@ -1,5 +1,5 @@
 [package]
-name = "github-download-count"
+name = "github-release-info"
 version = "0.1.0"
 authors = ["onoderis <onoderis@users.noreply.github.com>"]
 

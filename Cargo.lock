@@ -307,7 +307,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "github-download-count"
+name = "github-release-info"
 version = "0.1.0"
 dependencies = [
  "reqwest 0.9.20 (registry+https://github.com/rust-lang/crates.io-index)",
