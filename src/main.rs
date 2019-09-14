@@ -1,4 +1,5 @@
 extern crate reqwest;
+extern crate serde;
 
 use std::env;
 use std::error::Error;
@@ -12,7 +13,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let project = &args[1];
 
     let url = format!("https://api.github.com/repos/{}/{}/releases", user, project);
-    let response: Vec<Release> = reqwest::get(url)?
+    let response: Vec<Release> = reqwest::get(&url)?
         .json()?;
 
     let asset = &response[0].assets[0];
