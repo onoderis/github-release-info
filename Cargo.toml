@@ -1,0 +1,9 @@
+[package]
+name = "github-download-count"
+version = "0.1.0"
+authors = ["onoderis <onoderis@users.noreply.github.com>"]
+
+[dependencies]
+reqwest = "0.9.20"
+serde = { version = "1.0.100", features = ["derive"] }
+serde_json = "1.0.40"
