@@ -4,33 +4,32 @@ extern crate reqwest;
 extern crate serde;
 
 use core::fmt;
-use std::{env, error};
+use std::error;
 use std::error::Error;
-use std::fmt::Display;
-use std::ops::Deref;
-use std::string::ParseError;
 
-use clap::{App, Arg, ArgMatches, SubCommand};
+use clap::{App, Arg};
 use serde::Deserialize;
-use serde::export::Formatter;
+
+const USER_NAME_PARAM: &'static str = "user";
+const REPO_NAME_PARAM: &'static str = "repo";
 
 fn main() -> Result<(), Box<dyn Error>> {
     let matches = App::new("Github release info")
-        .version("0.1.1") //todo version from cargo
-        .arg(Arg::with_name("user")
+        .version(env!("CARGO_PKG_VERSION"))
+        .arg(Arg::with_name(USER_NAME_PARAM)
             .short("u")
-            .long("user")
+            .long(USER_NAME_PARAM)
             .takes_value(true)
             .required(true))
-        .arg(Arg::with_name("repo")
+        .arg(Arg::with_name(REPO_NAME_PARAM)
             .short("r")
-            .long("repo")
+            .long(REPO_NAME_PARAM)
             .takes_value(true)
             .required(true))
         .get_matches();
 
-    let user = matches.value_of("user").ok_or(NoCliArgumentError)?;
-    let repository = matches.value_of("repo").ok_or(NoCliArgumentError)?;
+    let user = matches.value_of(USER_NAME_PARAM).ok_or(NoCliArgumentError)?;
+    let repository = matches.value_of(REPO_NAME_PARAM).ok_or(NoCliArgumentError)?;
 
     let url = format!("https://api.github.com/repos/{}/{}/releases", user, repository);
     let response: Vec<Release> = reqwest::get(&url)?
